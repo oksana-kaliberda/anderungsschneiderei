@@ -1465,6 +1465,12 @@ html, body{
       <div class="form-success" id="formSuccess">
         <div class="fs-icon">✦</div>
         <p><span data-lang="de" class="active">Danke! Wir melden uns bald.</span><span data-lang="en">Thank you! We'll be in touch soon.</span><span data-lang="ru">Спасибо! Мы скоро свяжемся.</span><span data-lang="uk">Дякуємо! Ми скоро зв'яжемося.</span></p>
+        <button onclick="resetForm()" class="form-submit" style="margin-top:20px;font-size:10px;padding:12px 28px;">
+          <span data-lang="de" class="active">Neue Anfrage senden</span>
+          <span data-lang="en">Send another request</span>
+          <span data-lang="ru">Отправить ещё запрос</span>
+          <span data-lang="uk">Надіслати ще запит</span>
+        </button>
       </div>
     </div>
   </div>
@@ -1920,24 +1926,36 @@ window.addEventListener('scroll', onScroll, { passive: true });
 // ── Form submit ──
 function submitForm(e) {
   e.preventDefault();
-  var fields = e.target.querySelectorAll('input, select, textarea');
-  var vorname   = fields[0].value;
-  var nachname  = fields[1].value;
-  var email     = fields[2].value;
-  var telefon   = fields[3].value;
-  var leistung  = e.target.querySelector('select.active, select[data-lang].active') 
-                  ? e.target.querySelector('select[data-lang].active').value 
-                  : e.target.querySelector('select').value;
-  var nachricht = fields[5].value;
+  var form = e.target;
+  var vorname   = form.querySelector('input[type="text"]').value;
+  var nachname  = form.querySelectorAll('input[type="text"]')[1].value;
+  var email     = form.querySelector('input[type="email"]').value;
+  var telefon   = form.querySelector('input[type="tel"]').value;
+  var activeSelect = form.querySelector('select[data-lang].active');
+  var leistung  = activeSelect ? activeSelect.value : '';
+  var nachricht = form.querySelector('textarea').value;
   var subject = encodeURIComponent('Anfrage von ' + vorname + ' ' + nachname + ' — OK Schneiderei');
-  var body = encodeURIComponent('Name: ' + vorname + ' ' + nachname + '\nE-Mail: ' + email + '\nTelefon: ' + telefon + '\nLeistung: ' + leistung + '\n\nNachricht:\n' + nachricht);
+  var body = encodeURIComponent(
+    'Name: ' + vorname + ' ' + nachname +
+    '\nE-Mail: ' + email +
+    '\nTelefon: ' + telefon +
+    '\nLeistung: ' + leistung +
+    '\n\nNachricht:\n' + nachricht
+  );
   window.location.href = 'mailto:Oksanakaliberda82@gmail.com?subject=' + subject + '&body=' + body;
   setTimeout(function() {
-    var form = document.getElementById('bookingForm');
+    var bookingForm = document.getElementById('bookingForm');
     var success = document.getElementById('formSuccess');
-    if (form) form.style.display = 'none';
+    if (bookingForm) bookingForm.style.display = 'none';
     if (success) success.style.display = 'block';
   }, 500);
+}
+
+function resetForm() {
+  var form = document.getElementById('bookingForm');
+  var success = document.getElementById('formSuccess');
+  if (form) { form.reset(); form.style.display = ''; }
+  if (success) success.style.display = 'none';
 }
 
 // ── DOMContentLoaded ──
