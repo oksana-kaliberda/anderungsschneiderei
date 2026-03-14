@@ -4,7 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Änderungsschneiderei "OK" | Oksana Kaliberda</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Tenor+Sans&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<!-- Google Fonts загружаются только после согласия с cookies -->
+<link id="googleFontsLink" rel="stylesheet" href="" data-src="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Tenor+Sans&family=Jost:wght@200;300;400;500&display=swap">
+<style id="fallbackFonts">
+  /* Системные шрифты до загрузки Google Fonts или при отказе */
+  body { font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  .hero-title, .s-title, .review-text, .about-text p, .modal-box h2, .modal-box h3,
+  .f-logo, .lang-logo, .svc-name, .review-text, .form-desc p {
+    font-family: 'Cormorant', Georgia, 'Times New Roman', serif;
+  }
+  .hero-name { font-family: 'Tenor Sans', Georgia, serif; }
+</style>
 <style>
 :root {
   --bg: #07162d;
@@ -1033,6 +1043,124 @@ html, body{
 
 
 
+/* ── LEGAL MODALS ── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:9000;
+  background:rgba(4,10,22,0.88);backdrop-filter:blur(8px);
+  overflow-y:auto;padding:40px 20px;
+}
+.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center;}
+.modal-box{
+  background:linear-gradient(180deg,#0d2343,#07162d);
+  border:1px solid rgba(215,177,101,0.22);
+  max-width:760px;width:100%;
+  padding:56px 60px;
+  position:relative;
+  margin:auto;
+}
+.modal-close{
+  position:absolute;top:20px;right:24px;
+  background:none;border:none;color:var(--muted);
+  font-size:24px;cursor:pointer;line-height:1;
+  transition:color 0.2s;
+}
+.modal-close:hover{color:var(--rose);}
+.modal-box h2{
+  font-family:'Cormorant',serif;font-size:36px;font-weight:300;
+  color:var(--cream);margin-bottom:8px;
+}
+.modal-box .modal-sub{
+  font-size:9px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--rose);margin-bottom:36px;display:block;
+}
+.modal-box h3{
+  font-family:'Cormorant',serif;font-size:18px;font-weight:400;
+  color:var(--rose);margin:28px 0 8px;letter-spacing:0.5px;
+}
+.modal-box p,.modal-box li{
+  font-size:14px;line-height:1.85;color:var(--muted);
+  margin-bottom:6px;
+}
+.modal-box ul{padding-left:20px;margin-bottom:8px;}
+.modal-box a{color:var(--rose);text-decoration:none;}
+.modal-box a:hover{text-decoration:underline;}
+.modal-box .modal-divider{
+  border:none;border-top:1px solid var(--border);margin:28px 0;
+}
+@media(max-width:640px){
+  .modal-box{padding:40px 24px;}
+  .modal-box h2{font-size:28px;}
+}
+
+/* ── COOKIE BANNER ── */
+#cookieBanner{
+  display:none;
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(4,10,22,0.85);
+  backdrop-filter:blur(10px);
+  align-items:center;justify-content:center;
+  padding:20px;
+}
+#cookieBanner.show{ display:flex; }
+.cookie-box{
+  background:linear-gradient(180deg,#0d2343,#07162d);
+  border:1px solid rgba(215,177,101,0.25);
+  max-width:520px;width:100%;
+  padding:48px 52px;
+  position:relative;
+  animation:fadeUpIn 0.4s both;
+}
+.cookie-icon{
+  font-size:28px;margin-bottom:20px;
+}
+.cookie-box h2{
+  font-family:'Cormorant',serif;
+  font-size:28px;font-weight:300;
+  color:var(--cream);margin-bottom:12px;
+}
+.cookie-box p{
+  font-size:13px;line-height:1.8;
+  color:var(--muted);margin-bottom:24px;
+}
+.cookie-box p a{
+  color:var(--rose);text-decoration:none;
+}
+.cookie-box p a:hover{ text-decoration:underline; }
+.cookie-actions{
+  display:flex;gap:12px;flex-wrap:wrap;
+}
+.cookie-accept{
+  flex:1;
+  background:linear-gradient(135deg,var(--gold),var(--rose2));
+  color:var(--navy-deep);
+  border:none;cursor:pointer;
+  font-family:'Jost',sans-serif;
+  font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;
+  padding:15px 24px;font-weight:500;
+  transition:all 0.3s;
+}
+.cookie-accept:hover{ background:var(--rose2); }
+.cookie-decline{
+  flex:1;
+  background:none;
+  border:1px solid rgba(215,177,101,0.3);
+  color:var(--muted);cursor:pointer;
+  font-family:'Jost',sans-serif;
+  font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;
+  padding:15px 24px;
+  transition:all 0.3s;
+}
+.cookie-decline:hover{
+  border-color:rgba(215,177,101,0.6);
+  color:var(--rose);
+}
+@media(max-width:480px){
+  .cookie-box{ padding:36px 24px; }
+  .cookie-actions{ flex-direction:column; }
+}
+
 /* Mobile title fix */
 .hero-title{
   max-width: 100%;
@@ -1213,22 +1341,39 @@ html, body{
     <p class="s-eyebrow"><span data-lang="de" class="active">Kundenstimmen</span><span data-lang="en">Reviews</span><span data-lang="ru">Отзывы</span><span data-lang="uk">Відгуки</span></p>
     <h2 class="s-title"><span data-lang="de" class="active">Was Kunden <em>sagen</em></span><span data-lang="en">What clients <em>say</em></span><span data-lang="ru">Что говорят <em>клиенты</em></span><span data-lang="uk">Що кажуть <em>клієнти</em></span></h2>
   </div>
-  <div class="reviews-grid stagger">
-    <div class="review fade-up">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text"><span data-lang="de" class="active">"Meine Hose sitzt jetzt wie angegossen. Schnell erledigt und sehr faire Preise — absolute Empfehlung!"</span><span data-lang="en">"My trousers fit like a glove now. Done quickly at very fair prices — absolute recommendation!"</span><span data-lang="ru">"Мои брюки теперь сидят как влитые. Быстро и по справедливой цене — однозначно рекомендую!"</span><span data-lang="uk">"Мої штани тепер сидять ідеально. Швидко і за справедливою ціною — однозначно рекомендую!"</span></p>
-      <p class="review-author">— Maria S.</p>
-    </div>
-    <div class="review fade-up">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text"><span data-lang="de" class="active">"Seidenkleid perfekt verändert — die Qualität der Arbeit ist außergewöhnlich. Sehr empfehlenswert!"</span><span data-lang="en">"Silk dress altered to perfection — the quality of work is exceptional. Highly recommended!"</span><span data-lang="ru">"Шёлковое платье переделано идеально — исключительное качество. Очень рекомендую!"</span><span data-lang="uk">"Шовкова сукня переосмислена ідеально — виняткова якість. Дуже рекомендую!"</span></p>
-      <p class="review-author">— Julia K.</p>
-    </div>
-    <div class="review fade-up">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text"><span data-lang="de" class="active">"Freundliche Beratung, schnelle Ausführung — das Ergebnis hat alle Erwartungen übertroffen!"</span><span data-lang="en">"Friendly advice, fast execution — the result exceeded all my expectations!"</span><span data-lang="ru">"Дружелюбная консультация, быстрое исполнение — результат превзошёл ожидания!"</span><span data-lang="uk">"Доброзичлива консультація, швидке виконання — результат перевершив очікування!"</span></p>
-      <p class="review-author">— Thomas W.</p>
-    </div>
+  <!-- отзывы удалены — используем только реальные отзывы с Google -->
+
+  <!-- Google Reviews Button -->
+  <div style="text-align:center;margin-top:48px;" class="fade-up">
+    <a
+      href="https://maps.app.goo.gl/ZZiFJRGjMV2PD8Dy8"
+      target="_blank"
+      rel="noopener"
+      style="
+        display:inline-flex;align-items:center;gap:12px;
+        border:1px solid rgba(215,177,101,0.35);
+        color:var(--rose);
+        text-decoration:none;
+        font-family:'Jost',sans-serif;
+        font-size:10px;letter-spacing:3px;
+        text-transform:uppercase;
+        padding:16px 36px;
+        transition:all 0.3s;
+      "
+      onmouseover="this.style.background='rgba(215,177,101,0.08)';this.style.borderColor='rgba(215,177,101,0.65)'"
+      onmouseout="this.style.background='';this.style.borderColor='rgba(215,177,101,0.35)'"
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.8"/>
+      </svg>
+      <span>
+        <span data-lang="de" class="active">Alle Bewertungen auf Google lesen &nbsp;⭐ 5,0</span>
+        <span data-lang="en">Read all reviews on Google &nbsp;⭐ 5.0</span>
+        <span data-lang="ru">Все отзывы на Google &nbsp;⭐ 5,0</span>
+        <span data-lang="uk">Всі відгуки на Google &nbsp;⭐ 5,0</span>
+      </span>
+    </a>
   </div>
 </section>
 
@@ -1269,14 +1414,41 @@ html, body{
         </div>
         <div class="form-field">
           <label><span data-lang="de" class="active">Leistung</span><span data-lang="en">Service</span><span data-lang="ru">Услуга</span><span data-lang="uk">Послуга</span></label>
-          <select>
+          <select data-lang="de" class="active">
             <option value="" disabled selected>—</option>
-            <option>Änderungen / Alterations</option>
+            <option>Änderungen</option>
             <option>Neugestaltung / Redesign</option>
-            <option>Leder & Pelze</option>
-            <option>Braut- & Festmode</option>
-            <option>Mode & Accessoires</option>
+            <option>Leder &amp; Pelze</option>
+            <option>Braut- &amp; Festmode</option>
+            <option>Mode &amp; Accessoires</option>
             <option>Beratung / Consultation</option>
+          </select>
+          <select data-lang="en">
+            <option value="" disabled selected>—</option>
+            <option>Alterations</option>
+            <option>Redesign</option>
+            <option>Leather &amp; Fur</option>
+            <option>Bridal &amp; Formalwear</option>
+            <option>Fashion &amp; Accessories</option>
+            <option>Consultation</option>
+          </select>
+          <select data-lang="ru">
+            <option value="" disabled selected>—</option>
+            <option>Переделки / Подгонка</option>
+            <option>Перекрой / Редизайн</option>
+            <option>Кожа и меха</option>
+            <option>Свадебная и праздничная мода</option>
+            <option>Мода и аксессуары</option>
+            <option>Консультация</option>
+          </select>
+          <select data-lang="uk">
+            <option value="" disabled selected>—</option>
+            <option>Переробки / Підгонка</option>
+            <option>Перекрій / Редизайн</option>
+            <option>Шкіра та хутро</option>
+            <option>Весільна та святкова мода</option>
+            <option>Мода та аксесуари</option>
+            <option>Консультація</option>
           </select>
         </div>
         <div class="form-field">
@@ -1330,6 +1502,13 @@ html, body{
         <a href="tel:+497212495049">+49 721 249 50 49</a>
       </div>
     </div>
+    <div class="c-item">
+      <div class="c-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+      <div class="c-val">
+        <p class="c-label"><span data-lang="de" class="active">E-Mail</span><span data-lang="en">Email</span><span data-lang="ru">Эл. почта</span><span data-lang="uk">Ел. пошта</span></p>
+        <a href="mailto:Oksanakaliberda82@gmail.com">Oksanakaliberda82@gmail.com</a>
+      </div>
+    </div>
     <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;">
       <a href="tel:+497212495049" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.61 5.61l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
@@ -1338,7 +1517,7 @@ html, body{
         <span data-lang="ru">Позвонить</span>
         <span data-lang="uk">Зателефонувати</span>
       </a>
-      <a href="/cdn-cgi/l/email-protection#1c53776f7d727d777d70757e796e787d242e5c7b717d7570327f7371" class="btn-outline" style="display:inline-flex;align-items:center;gap:8px">
+      <a href="mailto:Oksanakaliberda82@gmail.com" class="btn-outline" style="display:inline-flex;align-items:center;gap:8px">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         <span data-lang="de" class="active">E-Mail schreiben</span>
         <span data-lang="en">Send Email</span>
@@ -1369,6 +1548,11 @@ html, body{
       <div class="mib-block">
         <span class="mib-label"><span data-lang="de" class="active">Telefon</span><span data-lang="en">Phone</span><span data-lang="ru">Телефон</span><span data-lang="uk">Телефон</span></span>
         <a href="tel:+497212495049" class="mib-val mib-phone">+49 721 249 50 49</a>
+      </div>
+      <div class="mib-divider"></div>
+      <div class="mib-block">
+        <span class="mib-label">E-Mail</span>
+        <a href="mailto:Oksanakaliberda82@gmail.com" class="mib-val" style="font-size:12px;">Oksanakaliberda82@gmail.com</a>
         <span class="mib-badge">⭐ 5,0 · Google Maps</span>
       </div>
       <div class="mib-divider"></div>
@@ -1378,99 +1562,354 @@ html, body{
       </div>
     </div>
   </div>
-  <div class="map-full fade-scale">
-    <iframe src="https://maps.google.com/maps?q=Oksana+Kaliberda+OK+Schneiderei+%C3%84nderungen+Mode+Passagehof+18+Karlsruhe&z=18&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <div id="mapContainer">
+    <!-- заглушка -->
+    <div id="mapPlaceholder" style="
+      height:420px;width:100%;
+      display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      background:linear-gradient(180deg,#0d2343,#07162d);
+      border-top:1px solid rgba(215,177,101,0.15);
+      gap:20px;padding:32px 24px;text-align:center;
+      box-sizing:border-box;
+    ">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(215,177,101,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <p style="font-size:14px;color:rgba(236,223,191,0.55);line-height:1.75;max-width:360px;margin:0;">
+        <span data-lang="de" class="active">Hier wurde externer Inhalt von <strong style="color:rgba(215,177,101,0.8)">Google Maps</strong> eingebunden. Aus Datenschutzgründen wird die Karte nur nach Ihrer Zustimmung angezeigt.</span>
+        <span data-lang="en">External content from <strong style="color:rgba(215,177,101,0.8)">Google Maps</strong>. For privacy reasons the map loads only after your consent.</span>
+        <span data-lang="ru">Встроен контент от <strong style="color:rgba(215,177,101,0.8)">Google Maps</strong>. Карта загружается только после вашего согласия.</span>
+        <span data-lang="uk">Вбудовано контент від <strong style="color:rgba(215,177,101,0.8)">Google Maps</strong>. Карта завантажується лише після вашої згоди.</span>
+      </p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:4px;">
+        <button onclick="loadGoogleMap()" style="background:linear-gradient(135deg,var(--gold),var(--rose2));color:#06101f;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:13px 28px;font-weight:500;">
+          <span data-lang="de" class="active">Karte laden</span>
+          <span data-lang="en">Load map</span>
+          <span data-lang="ru">Загрузить карту</span>
+          <span data-lang="uk">Завантажити карту</span>
+        </button>
+        <a href="https://maps.app.goo.gl/DrW5TyoxP2kGAocd9" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;border:1px solid rgba(215,177,101,0.3);color:rgba(215,177,101,0.7);text-decoration:none;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:13px 28px;">
+          <span data-lang="de" class="active">In Google Maps öffnen ↗</span>
+          <span data-lang="en">Open in Google Maps ↗</span>
+          <span data-lang="ru">Открыть в Google Maps ↗</span>
+          <span data-lang="uk">Відкрити в Google Maps ↗</span>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
   <div class="f-logo">Änderungsschneiderei <em>"OK"</em> IHN. OKSANA KALIBERDA</div>
-  <p>© 2025 · Passagehof 18 · 76133 Karlsruhe · +49 721 249 50 49</p>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;text-align:right;">
+    <p>© 2025 · Passagehof 18 · 76133 Karlsruhe · +49 721 249 50 49</p>
+    <div style="display:flex;gap:20px;">
+      <button onclick="openModal('modalImpressum')" style="background:none;border:none;cursor:pointer;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(215,177,101,0.55);font-family:'Jost',sans-serif;padding:0;transition:color 0.2s;" onmouseover="this.style.color='#d7b165'" onmouseout="this.style.color='rgba(215,177,101,0.55)'">Impressum</button>
+      <button onclick="openModal('modalDatenschutz')" style="background:none;border:none;cursor:pointer;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(215,177,101,0.55);font-family:'Jost',sans-serif;padding:0;transition:color 0.2s;" onmouseover="this.style.color='#d7b165'" onmouseout="this.style.color='rgba(215,177,101,0.55)'">Datenschutz</button>
+    </div>
+  </div>
 </footer>
 
+<!-- ══ IMPRESSUM MODAL ══ -->
+<div class="modal-overlay" id="modalImpressum">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modalImpressum')">✕</button>
+
+    <!-- DE -->
+    <div data-lang="de" class="active">
+      <h2>Impressum</h2>
+      <p>Oksana Kaliberda<br>Änderungsschneiderei "O.K." bei Oksana Kaliberda<br>Passagehof 18<br>76133 Karlsruhe</p>
+      <h3>Kontakt</h3>
+      <p>Telefon: <a href="tel:+497212495049">+49 721 249 50 49</a><br>E-Mail: <a href="mailto:Oksanakaliberda82@gmail.com">Oksanakaliberda82@gmail.com</a></p>
+      <h3>Umsatzsteuer-ID</h3>
+      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br>DE368679563</p>
+      <h3>Gewerbeanmeldung</h3>
+      <p>Die Gewerbeerlaubnis nach § 14 GewO wurde am 28.11.2024 erteilt von:<br>Ordnungs- und Bürgeramt, Stadt Karlsruhe.</p>
+      <h3>Berufsbezeichnung und berufsrechtliche Regelungen</h3>
+      <p>Berufsbezeichnung: Maßschneider, Änderungsschneider<br>Zuständige Kammer: Handwerkskammer Karlsruhe, Haus des Handwerks, 76126 Karlsruhe<br>Verliehen in: Deutschland</p>
+      <h3>Angaben zur Berufshaftpflichtversicherung</h3>
+      <p><strong>Name und Sitz des Versicherers:</strong><br>DEVK Deutsche Eisenbahn Versicherung, DEVK Versicherungen, 50729 Köln<br><strong>Geltungsraum der Versicherung:</strong> Deutschland</p>
+      <h3>Verbraucherstreitbeilegung / Universalschlichtungsstelle</h3>
+      <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+      <hr class="modal-divider">
+      <p style="font-size:11px;opacity:0.45;">Quelle: e-recht24.de</p>
+    </div>
+
+    <!-- EN -->
+    <div data-lang="en">
+      <h2>Legal Notice</h2>
+      <p>Oksana Kaliberda<br>Änderungsschneiderei "O.K." bei Oksana Kaliberda<br>Passagehof 18<br>76133 Karlsruhe, Germany</p>
+      <h3>Contact</h3>
+      <p>Phone: <a href="tel:+497212495049">+49 721 249 50 49</a><br>Email: <a href="mailto:Oksanakaliberda82@gmail.com">Oksanakaliberda82@gmail.com</a></p>
+      <h3>VAT ID</h3>
+      <p>VAT Identification Number pursuant to § 27 a of the German VAT Act:<br>DE368679563</p>
+      <h3>Business Registration</h3>
+      <p>Business licence pursuant to § 14 GewO granted on 28.11.2024 by:<br>Ordnungs- und Bürgeramt, City of Karlsruhe.</p>
+      <h3>Professional Title</h3>
+      <p>Title: Tailor, Alteration Tailor<br>Responsible chamber: Handwerkskammer Karlsruhe, 76126 Karlsruhe<br>Awarded in: Germany</p>
+      <h3>Professional Liability Insurance</h3>
+      <p><strong>Insurer:</strong><br>DEVK Deutsche Eisenbahn Versicherung, 50729 Cologne<br><strong>Coverage area:</strong> Germany</p>
+      <h3>Consumer Dispute Resolution</h3>
+      <p>We are neither willing nor obliged to participate in dispute resolution proceedings before a consumer arbitration board.</p>
+    </div>
+
+    <!-- RU -->
+    <div data-lang="ru">
+      <h2>Выходные данные</h2>
+      <p>Оксана Калиберда<br>Ателье по пошиву и ремонту одежды "O.K." Оксаны Калиберды<br>Passagehof 18<br>76133 Карлсруэ, Германия</p>
+      <h3>Контакт</h3>
+      <p>Телефон: <a href="tel:+497212495049">+49 721 249 50 49</a><br>E-Mail: <a href="mailto:Oksanakaliberda82@gmail.com">Oksanakaliberda82@gmail.com</a></p>
+      <h3>Идентификационный номер плательщика НДС</h3>
+      <p>Согласно § 27a Закона об НДС Германии:<br>DE368679563</p>
+      <h3>Регистрация предприятия</h3>
+      <p>Разрешение на ведение коммерческой деятельности согласно § 14 GewO выдано 28.11.2024:<br>Ведомство по общественному порядку и делам граждан, г. Карлсруэ.</p>
+      <h3>Профессиональное звание</h3>
+      <p>Специальность: портной, мастер по ремонту одежды<br>Ответственная палата: Handwerkskammer Karlsruhe, 76126 Карлсруэ<br>Присвоено в: Германии</p>
+      <h3>Профессиональная страховка ответственности</h3>
+      <p><strong>Страховщик:</strong><br>DEVK Deutsche Eisenbahn Versicherung, 50729 Кёльн<br><strong>Зона действия:</strong> Германия</p>
+      <h3>Урегулирование потребительских споров</h3>
+      <p>Мы не обязаны и не готовы участвовать в процедурах урегулирования споров перед арбитражным органом по защите прав потребителей.</p>
+    </div>
+
+    <!-- UK -->
+    <div data-lang="uk">
+      <h2>Вихідні дані</h2>
+      <p>Оксана Каліберда<br>Ательє з пошиву та ремонту одягу "O.K." Оксани Каліберди<br>Passagehof 18<br>76133 Карлсруе, Німеччина</p>
+      <h3>Контакт</h3>
+      <p>Телефон: <a href="tel:+497212495049">+49 721 249 50 49</a><br>E-Mail: <a href="mailto:Oksanakaliberda82@gmail.com">Oksanakaliberda82@gmail.com</a></p>
+      <h3>Ідентифікаційний номер платника ПДВ</h3>
+      <p>Згідно з § 27a Закону про ПДВ Німеччини:<br>DE368679563</p>
+      <h3>Реєстрація підприємства</h3>
+      <p>Дозвіл на ведення господарської діяльності згідно з § 14 GewO виданий 28.11.2024:<br>Відомство з громадського порядку та справ громадян, м. Карлсруе.</p>
+      <h3>Професійне звання</h3>
+      <p>Спеціальність: кравець, майстер з ремонту одягу<br>Відповідальна палата: Handwerkskammer Karlsruhe, 76126 Карлсруе<br>Присвоєно в: Німеччині</p>
+      <h3>Страхування професійної відповідальності</h3>
+      <p><strong>Страховик:</strong><br>DEVK Deutsche Eisenbahn Versicherung, 50729 Кельн<br><strong>Зона дії:</strong> Німеччина</p>
+      <h3>Вирішення споживчих спорів</h3>
+      <p>Ми не зобов'язані та не готові брати участь у процедурах вирішення спорів перед арбітражним органом із захисту прав споживачів.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ DATENSCHUTZ MODAL ══ -->
+<div class="modal-overlay" id="modalDatenschutz">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modalDatenschutz')">✕</button>
+
+    <!-- DE -->
+    <div data-lang="de" class="active">
+      <h2>Datenschutzerklärung</h2>
+      <h3>1. Datenschutz auf einen Blick</h3>
+      <h4>Allgemeine Hinweise</h4>
+      <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
+      <h4>Datenerfassung auf dieser Website</h4>
+      <p>Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Die Kontaktdaten finden Sie im Abschnitt „Hinweis zur verantwortlichen Stelle".</p>
+      <p>Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen (z. B. Kontaktformular). Andere Daten werden automatisch beim Besuch der Website durch unsere IT-Systeme erfasst (z. B. Internetbrowser, Betriebssystem, Uhrzeit des Seitenaufrufs).</p>
+      <h4>Ihre Rechte</h4>
+      <p>Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung sowie Datenübertragbarkeit. Außerdem steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu.</p>
+
+      <h3>2. Hosting</h3>
+      <p>Diese Website wird extern gehostet bei:<br><strong>GitHub, Inc.</strong>, 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA.<br>Das externe Hosting erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+      <h3>3. Allgemeine Hinweise und Pflichtinformationen</h3>
+      <h4>Hinweis zur verantwortlichen Stelle</h4>
+      <p>Änderungsschneiderei "O.K." bei Oksana Kaliberda<br>Passagehof 18, 76133 Karlsruhe<br>Telefon: <a href="tel:+497212495049">+49 721 249 50 49</a><br>E-Mail: <a href="mailto:Oksanakaliberda82@gmail.com">Oksanakaliberda82@gmail.com</a></p>
+      <h4>Speicherdauer</h4>
+      <p>Ihre personenbezogenen Daten verbleiben bei uns, bis der Zweck für die Datenverarbeitung entfällt oder Sie ein berechtigtes Löschersuchen geltend machen.</p>
+      <h4>SSL- bzw. TLS-Verschlüsselung</h4>
+      <p>Diese Seite nutzt aus Sicherheitsgründen eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie am „https://" und dem Schloss-Symbol in der Browserzeile.</p>
+
+      <h3>4. Datenerfassung auf dieser Website</h3>
+      <h4>Cookies</h4>
+      <p>Diese Website verwendet technisch notwendige Cookies auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Soweit eine Einwilligung abgefragt wurde, erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO; die Einwilligung ist jederzeit widerrufbar.</p>
+      <h4>Kontaktformular</h4>
+      <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben zur Bearbeitung der Anfrage bei uns gespeichert und nicht ohne Ihre Einwilligung weitergegeben. Rechtsgrundlage: Art. 6 Abs. 1 lit. b bzw. lit. f DSGVO.</p>
+      <h4>Anfrage per E-Mail oder Telefon</h4>
+      <p>Wenn Sie uns per E-Mail oder Telefon kontaktieren, wird Ihre Anfrage inklusive personenbezogener Daten zum Zwecke der Bearbeitung gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+
+      <h3>5. Plugins und Tools</h3>
+      <h4>Google Fonts</h4>
+      <p>Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten Google Fonts von Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Dabei wird Ihre IP-Adresse an Google-Server übertragen. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (nach Einwilligung). Die Einwilligung ist jederzeit widerrufbar. Google verfügt über eine Zertifizierung nach dem EU-US Data Privacy Framework. Weitere Infos: <a href="https://policies.google.com/privacy?hl=de" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
+      <h4>Google Maps</h4>
+      <p>Diese Seite nutzt den Kartendienst Google Maps von Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Zur Nutzung ist es notwendig, Ihre IP-Adresse zu speichern und an Google-Server in die USA zu übertragen. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (nach Einwilligung). Die Einwilligung ist jederzeit widerrufbar. Die Datenübertragung in die USA wird auf die Standardvertragsklauseln der EU-Kommission gestützt. Weitere Infos: <a href="https://policies.google.com/privacy?hl=de" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
+      <hr class="modal-divider">
+      <p style="font-size:11px;opacity:0.45;">Quelle: e-recht24.de · Stand: 2025 · Karlsruhe</p>
+    </div>
+
+    <!-- EN -->
+    <div data-lang="en">
+      <h2>Privacy Policy</h2>
+      <h3>1. Privacy at a Glance</h3>
+      <p>When you visit this website, personal data may be collected. Personal data means any data that can identify you personally. This privacy policy explains what data we collect and how we use it.</p>
+      <h3>2. Hosting</h3>
+      <p>This website is hosted by <strong>GitHub, Inc.</strong>, 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA. Hosting is based on Art. 6(1)(f) GDPR.</p>
+      <h3>3. Controller</h3>
+      <p>Änderungsschneiderei "O.K." bei Oksana Kaliberda<br>Passagehof 18, 76133 Karlsruhe<br>Phone: <a href="tel:+497212495049">+49 721 249 50 49</a><br>Email: <a href="mailto:Oksanakaliberda82@gmail.com">Oksanakaliberda82@gmail.com</a></p>
+      <h3>4. Data Collection</h3>
+      <h4>Contact Form</h4>
+      <p>Data submitted via the contact form is stored solely for processing your enquiry and will not be shared without your consent. Legal basis: Art. 6(1)(b) or (f) GDPR.</p>
+      <h4>Email / Phone Enquiries</h4>
+      <p>If you contact us by email or phone, your request and related personal data will be stored for processing purposes and not passed on without your consent.</p>
+      <h3>5. Third-Party Tools</h3>
+      <h4>Google Fonts</h4>
+      <p>This site uses Google Fonts (Google Ireland Limited, Dublin, Ireland). Your IP address is transmitted to Google servers. Legal basis: Art. 6(1)(a) GDPR (consent). Consent can be withdrawn at any time. More info: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
+      <h4>Google Maps</h4>
+      <p>This site uses Google Maps (Google Ireland Limited, Dublin, Ireland). Your IP address is transmitted to Google servers in the USA. Legal basis: Art. 6(1)(a) GDPR (consent). Consent can be withdrawn at any time. More info: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
+    </div>
+
+    <!-- RU -->
+    <div data-lang="ru">
+      <h2>Политика конфиденциальности</h2>
+      <h3>1. Общие сведения</h3>
+      <p>При посещении этого сайта могут собираться персональные данные — любые данные, по которым вас можно идентифицировать лично.</p>
+      <h3>2. Хостинг</h3>
+      <p>Сайт размещён у <strong>GitHub, Inc.</strong>, 88 Colin P Kelly Jr St, San Francisco, CA 94107, США. Правовая основа: ст. 6 (1)(f) GDPR.</p>
+      <h3>3. Ответственное лицо</h3>
+      <p>Änderungsschneiderei "O.K." bei Oksana Kaliberda<br>Passagehof 18, 76133 Карлсруэ<br>Тел.: <a href="tel:+497212495049">+49 721 249 50 49</a><br>E-Mail: <a href="mailto:Oksanakaliberda82@gmail.com">Oksanakaliberda82@gmail.com</a></p>
+      <h3>4. Сбор данных</h3>
+      <h4>Контактная форма</h4>
+      <p>Данные, отправленные через контактную форму, хранятся исключительно для обработки вашего запроса и не передаются третьим лицам без вашего согласия. Правовая основа: ст. 6 (1)(b) или (f) GDPR.</p>
+      <h4>Запросы по e-mail или телефону</h4>
+      <p>При контакте по e-mail или телефону ваш запрос и связанные персональные данные сохраняются для обработки и не передаются третьим лицам без согласия.</p>
+      <h3>5. Сторонние инструменты</h3>
+      <h4>Google Fonts</h4>
+      <p>Сайт использует Google Fonts (Google Ireland Limited, Дублин). Ваш IP-адрес передаётся на серверы Google. Правовая основа: ст. 6 (1)(a) GDPR (согласие). Согласие можно отозвать в любое время. Подробнее: <a href="https://policies.google.com/privacy?hl=ru" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
+      <h4>Google Maps</h4>
+      <p>Сайт использует Google Maps (Google Ireland Limited, Дублин). Ваш IP-адрес передаётся на серверы Google в США. Правовая основа: ст. 6 (1)(a) GDPR (согласие). Согласие можно отозвать в любое время. Подробнее: <a href="https://policies.google.com/privacy?hl=ru" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
+      <hr class="modal-divider">
+      <p style="font-size:11px;opacity:0.45;">Источник: e-recht24.de · 2025 · Карлсруэ</p>
+    </div>
+
+    <!-- UK -->
+    <div data-lang="uk">
+      <h2>Політика конфіденційності</h2>
+      <h3>1. Загальні відомості</h3>
+      <p>При відвідуванні цього сайту можуть збиратися персональні дані — будь-які дані, за якими вас можна ідентифікувати особисто.</p>
+      <h3>2. Хостинг</h3>
+      <p>Сайт розміщено у <strong>GitHub, Inc.</strong>, 88 Colin P Kelly Jr St, San Francisco, CA 94107, США. Правова основа: ст. 6 (1)(f) GDPR.</p>
+      <h3>3. Відповідальна особа</h3>
+      <p>Änderungsschneiderei "O.K." bei Oksana Kaliberda<br>Passagehof 18, 76133 Карлсруе<br>Тел.: <a href="tel:+497212495049">+49 721 249 50 49</a><br>E-Mail: <a href="mailto:Oksanakaliberda82@gmail.com">Oksanakaliberda82@gmail.com</a></p>
+      <h3>4. Збір даних</h3>
+      <h4>Контактна форма</h4>
+      <p>Дані, надіслані через контактну форму, зберігаються виключно для обробки вашого запиту і не передаються третім особам без вашої згоди. Правова основа: ст. 6 (1)(b) або (f) GDPR.</p>
+      <h4>Запити по e-mail або телефону</h4>
+      <p>При контакті по e-mail або телефону ваш запит та пов'язані персональні дані зберігаються для обробки і не передаються без згоди.</p>
+      <h3>5. Сторонні інструменти</h3>
+      <h4>Google Fonts</h4>
+      <p>Сайт використовує Google Fonts (Google Ireland Limited, Дублін). Ваша IP-адреса передається на сервери Google. Правова основа: ст. 6 (1)(a) GDPR (згода). Згоду можна відкликати будь-коли. Детальніше: <a href="https://policies.google.com/privacy?hl=uk" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
+      <h4>Google Maps</h4>
+      <p>Сайт використовує Google Maps (Google Ireland Limited, Дублін). Ваша IP-адреса передається на сервери Google в США. Правова основа: ст. 6 (1)(a) GDPR (згода). Згоду можна відкликати будь-коли. Детальніше: <a href="https://policies.google.com/privacy?hl=uk" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
+      <hr class="modal-divider">
+      <p style="font-size:11px;opacity:0.45;">Джерело: e-recht24.de · 2025 · Карлсруе</p>
+    </div>
+
+  </div>
+</div>
+
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Language
+
+// ── Google Fonts & Maps (загружаются только после согласия) ──
+function loadGoogleFonts() {
+  var link = document.getElementById('googleFontsLink');
+  if (link) link.href = link.getAttribute('data-src');
+}
+function loadGoogleMap() {
+  var container = document.getElementById('mapContainer');
+  if (!container) return;
+  var placeholder = document.getElementById('mapPlaceholder');
+  if (placeholder) placeholder.remove();
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://maps.google.com/maps?q=Oksana+Kaliberda+OK+Schneiderei+%C3%84nderungen+Mode+Passagehof+18+Karlsruhe&z=18&output=embed';
+  iframe.allowFullscreen = true;
+  iframe.loading = 'lazy';
+  iframe.referrerPolicy = 'no-referrer-when-downgrade';
+  iframe.style.cssText = 'width:100%;height:420px;border:none;display:block;filter:hue-rotate(185deg) saturate(0.7) contrast(1.05) brightness(0.92);';
+  container.appendChild(iframe);
+}
+
+// ── Cookie Banner — с чекбоксами ──
+function cookieSave() {
+  var fonts = document.getElementById('cbFonts').checked;
+  var maps  = document.getElementById('cbMaps').checked;
+  document.getElementById('cookieBanner').classList.remove('show');
+  document.body.style.overflow = '';
+  if (fonts) loadGoogleFonts();
+  if (maps)  loadGoogleMap();
+}
+function cookieAll() {
+  document.getElementById('cbFonts').checked = true;
+  document.getElementById('cbMaps').checked  = true;
+  document.getElementById('cbFonts').style.background = 'var(--gold)';
+  document.getElementById('cbMaps').style.background  = 'var(--gold)';
+  document.getElementById('cookieBanner').classList.remove('show');
+  document.body.style.overflow = '';
+  loadGoogleFonts();
+  loadGoogleMap();
+}
+function cookieConsent(accepted) {
+  document.getElementById('cookieBanner').classList.remove('show');
+  document.body.style.overflow = '';
+  if (accepted) { loadGoogleFonts(); loadGoogleMap(); }
+}
+
+// ── Modals ──
+function openModal(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  if (id === 'cookieBanner') { el.classList.remove('show'); return; }
+  el.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── Language ──
 function setLang(lang) {
-  document.querySelectorAll('[data-lang]').forEach(el => {
+  document.querySelectorAll('[data-lang]').forEach(function(el) {
     el.classList.toggle('active', el.dataset.lang === lang);
   });
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
   });
   document.documentElement.lang = lang;
 }
 
-// Scroll reveal — bidirectional
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
+// ── Scroll reveal ──
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
     if (e.isIntersecting) e.target.classList.add('visible');
     else e.target.classList.remove('visible');
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.fade-up,.fade-left,.fade-right,.fade-scale').forEach(el => observer.observe(el));
-});
-
-// Scroll progress line
-const progressBar = document.createElement('div');
-progressBar.style.cssText = `
-  position:fixed; top:0; left:0; height:2px; width:0%;
-  background:linear-gradient(90deg, var(--rose), var(--rose2));
-  z-index:9999; transition:width 0.1s linear; pointer-events:none;
-`;
+// ── Scroll progress bar ──
+var progressBar = document.createElement('div');
+progressBar.style.cssText = 'position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--rose),var(--rose2));z-index:9999;transition:width 0.1s linear;pointer-events:none;';
 progressBar.id = 'scrollProgress';
 document.body.appendChild(progressBar);
 
-// Smooth scroll-driven effects
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  const maxScroll = document.body.scrollHeight - window.innerHeight;
-
-  // progress handled in RAF loop
-
-  // Float bar
-  const bar = document.getElementById('floatBar');
-  if (bar) bar.classList.toggle('visible', scrollY > 300);
-
-  // Subtle section bg parallax
-  document.querySelectorAll('.section.alt, .form-section').forEach(sec => {
-    const rect = sec.getBoundingClientRect();
-    const offset = rect.top * 0.04;
-    sec.style.backgroundPositionY = offset + 'px';
-  });
-
-}, { passive: true });
-
-// Smooth RAF parallax — no jitter
-let ticking = false;
-let lastScroll = 0;
-
+// ── RAF scroll effects ──
+var ticking = false;
+var lastScroll = 0;
 function onScroll() {
   lastScroll = window.scrollY;
   if (!ticking) {
-    requestAnimationFrame(() => {
-      // Float bar
-      const bar = document.getElementById('floatBar');
+    requestAnimationFrame(function() {
+      var bar = document.getElementById('floatBar');
       if (bar) bar.classList.toggle('visible', lastScroll > 300);
-
-      // Hero image parallax — only while hero visible
-      const hero = document.querySelector('.hero-right');
-      const img  = document.getElementById('heroParallax');
-      if (img && hero) {
-        const heroH = hero.offsetHeight;
-        if (lastScroll < heroH) {
-          const y = lastScroll * 0.18;
-          img.style.transform = `translateY(${y}px) scale(1.0)`;
-        }
+      var hero = document.querySelector('.hero-right');
+      var img  = document.getElementById('heroParallax');
+      if (img && hero && lastScroll < hero.offsetHeight) {
+        img.style.transform = 'translateY(' + (lastScroll * 0.18) + 'px) scale(1.0)';
       }
-
-      // Progress bar
-      const maxScroll = document.body.scrollHeight - window.innerHeight;
-      const pb = document.getElementById('scrollProgress');
+      var maxScroll = document.body.scrollHeight - window.innerHeight;
+      var pb = document.getElementById('scrollProgress');
       if (pb) pb.style.width = (lastScroll / maxScroll * 100) + '%';
-
       ticking = false;
     });
     ticking = true;
@@ -1478,37 +1917,144 @@ function onScroll() {
 }
 window.addEventListener('scroll', onScroll, { passive: true });
 
-// Form submit — mailto
+// ── Form submit ──
 function submitForm(e) {
   e.preventDefault();
-  const f = e.target;
-  const fields = f.querySelectorAll('input, select, textarea');
-  
-  const vorname   = fields[0].value;
-  const nachname  = fields[1].value;
-  const email     = fields[2].value;
-  const telefon   = fields[3].value;
-  const leistung  = fields[4].value;
-  const nachricht = fields[5].value;
-
-  const subject = encodeURIComponent('Anfrage von ' + vorname + ' ' + nachname + ' — OK Schneiderei');
-  const body = encodeURIComponent(
-    'Name: ' + vorname + ' ' + nachname + '\n' +
-    'E-Mail: ' + email + '\n' +
-    'Telefon: ' + telefon + '\n' +
-    'Leistung: ' + leistung + '\n\n' +
-    'Nachricht:\n' + nachricht
-  );
-
+  var fields = e.target.querySelectorAll('input, select, textarea');
+  var vorname   = fields[0].value;
+  var nachname  = fields[1].value;
+  var email     = fields[2].value;
+  var telefon   = fields[3].value;
+  var leistung  = e.target.querySelector('select.active, select[data-lang].active') 
+                  ? e.target.querySelector('select[data-lang].active').value 
+                  : e.target.querySelector('select').value;
+  var nachricht = fields[5].value;
+  var subject = encodeURIComponent('Anfrage von ' + vorname + ' ' + nachname + ' — OK Schneiderei');
+  var body = encodeURIComponent('Name: ' + vorname + ' ' + nachname + '\nE-Mail: ' + email + '\nTelefon: ' + telefon + '\nLeistung: ' + leistung + '\n\nNachricht:\n' + nachricht);
   window.location.href = 'mailto:Oksanakaliberda82@gmail.com?subject=' + subject + '&body=' + body;
-
-  // Show success
-  setTimeout(() => {
-    document.getElementById('bookingForm').style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
+  setTimeout(function() {
+    var form = document.getElementById('bookingForm');
+    var success = document.getElementById('formSuccess');
+    if (form) form.style.display = 'none';
+    if (success) success.style.display = 'block';
   }, 500);
 }
+
+// ── DOMContentLoaded ──
+document.addEventListener('DOMContentLoaded', function() {
+  // Scroll reveal
+  document.querySelectorAll('.fade-up,.fade-left,.fade-right,.fade-scale').forEach(function(el) {
+    observer.observe(el);
+  });
+
+  // Modal click-outside close
+  document.querySelectorAll('.modal-overlay').forEach(function(m) {
+    m.addEventListener('click', function(e) { if (e.target === m) closeModal(m.id); });
+  });
+
+  // Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(function(m) { closeModal(m.id); });
+    }
+  });
+
+  // Cookie banner — показывать всегда при загрузке
+  setTimeout(function() {
+    var banner = document.getElementById('cookieBanner');
+    if (banner) {
+      banner.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+  }, 800);
+});
+
 </script>
+
+<!-- COOKIE BANNER -->
+<div id="cookieBanner">
+  <div class="cookie-box" style="max-width:560px;">
+    <div class="cookie-icon">🍪</div>
+    <h2>
+      <span data-lang="de" class="active">Datenschutz­hinweis</span>
+      <span data-lang="en">Privacy Notice</span>
+      <span data-lang="ru">Уведомление о данных</span>
+      <span data-lang="uk">Повідомлення про дані</span>
+    </h2>
+    <p style="margin-bottom:20px;">
+      <span data-lang="de" class="active">Wählen Sie, welche externen Dienste Sie erlauben möchten. Weitere Infos in unserer <button onclick="closeModal('cookieBanner');openModal('modalDatenschutz')" style="background:none;border:none;color:var(--rose);cursor:pointer;font-size:13px;padding:0;text-decoration:underline;">Datenschutzerklärung</button>.</span>
+      <span data-lang="en">Choose which external services you allow. See our <button onclick="closeModal('cookieBanner');openModal('modalDatenschutz')" style="background:none;border:none;color:var(--rose);cursor:pointer;font-size:13px;padding:0;text-decoration:underline;">Privacy Policy</button>.</span>
+      <span data-lang="ru">Выберите, какие внешние сервисы вы разрешаете. Подробнее в <button onclick="closeModal('cookieBanner');openModal('modalDatenschutz')" style="background:none;border:none;color:var(--rose);cursor:pointer;font-size:13px;padding:0;text-decoration:underline;">Политике конфиденциальности</button>.</span>
+      <span data-lang="uk">Оберіть, які зовнішні сервіси ви дозволяєте. Детальніше в <button onclick="closeModal('cookieBanner');openModal('modalDatenschutz')" style="background:none;border:none;color:var(--rose);cursor:pointer;font-size:13px;padding:0;text-decoration:underline;">Політиці конфіденційності</button>.</span>
+    </p>
+
+    <!-- Checkboxes -->
+    <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:28px;">
+
+      <!-- Google Fonts -->
+      <label style="display:flex;align-items:flex-start;gap:14px;cursor:pointer;padding:16px;border:1px solid rgba(215,177,101,0.18);transition:border-color 0.2s;" onmouseover="this.style.borderColor='rgba(215,177,101,0.4)'" onmouseout="this.style.borderColor='rgba(215,177,101,0.18)'">
+        <input type="checkbox" id="cbFonts" style="
+          appearance:none;-webkit-appearance:none;
+          width:20px;height:20px;min-width:20px;
+          border:1px solid rgba(215,177,101,0.45);
+          background:transparent;cursor:pointer;
+          position:relative;margin-top:2px;
+        " onchange="this.style.background=this.checked?'var(--gold)':'transparent'">
+        <div>
+          <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream);margin-bottom:4px;font-family:'Jost',sans-serif;">Google Fonts</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.65;">
+            <span data-lang="de" class="active">Schriftarten von Google — überträgt Ihre IP-Adresse an Google-Server in den USA.</span>
+            <span data-lang="en">Fonts from Google — transfers your IP address to Google servers in the US.</span>
+            <span data-lang="ru">Шрифты от Google — передаёт ваш IP-адрес на серверы Google в США.</span>
+            <span data-lang="uk">Шрифти від Google — передає вашу IP-адресу на сервери Google у США.</span>
+          </div>
+        </div>
+      </label>
+
+      <!-- Google Maps -->
+      <label style="display:flex;align-items:flex-start;gap:14px;cursor:pointer;padding:16px;border:1px solid rgba(215,177,101,0.18);transition:border-color 0.2s;" onmouseover="this.style.borderColor='rgba(215,177,101,0.4)'" onmouseout="this.style.borderColor='rgba(215,177,101,0.18)'">
+        <input type="checkbox" id="cbMaps" style="
+          appearance:none;-webkit-appearance:none;
+          width:20px;height:20px;min-width:20px;
+          border:1px solid rgba(215,177,101,0.45);
+          background:transparent;cursor:pointer;
+          position:relative;margin-top:2px;
+        " onchange="this.style.background=this.checked?'var(--gold)':'transparent'">
+        <div>
+          <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream);margin-bottom:4px;font-family:'Jost',sans-serif;">Google Maps</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.65;">
+            <span data-lang="de" class="active">Interaktive Karte von Google — überträgt Ihre IP-Adresse an Google-Server in den USA.</span>
+            <span data-lang="en">Interactive map from Google — transfers your IP address to Google servers in the US.</span>
+            <span data-lang="ru">Интерактивная карта от Google — передаёт ваш IP-адрес на серверы Google в США.</span>
+            <span data-lang="uk">Інтерактивна карта від Google — передає вашу IP-адресу на сервери Google у США.</span>
+          </div>
+        </div>
+      </label>
+
+    </div>
+
+    <div class="cookie-actions">
+      <button class="cookie-accept" onclick="cookieSave()">
+        <span data-lang="de" class="active">Auswahl speichern</span>
+        <span data-lang="en">Save selection</span>
+        <span data-lang="ru">Сохранить выбор</span>
+        <span data-lang="uk">Зберегти вибір</span>
+      </button>
+      <button class="cookie-accept" onclick="cookieAll()" style="background:none;border:1px solid rgba(215,177,101,0.35);color:var(--rose);">
+        <span data-lang="de" class="active">Alle akzeptieren</span>
+        <span data-lang="en">Accept all</span>
+        <span data-lang="ru">Принять все</span>
+        <span data-lang="uk">Прийняти всі</span>
+      </button>
+      <button class="cookie-decline" onclick="cookieConsent(false)" style="flex:none;width:100%;">
+        <span data-lang="de" class="active">Alle ablehnen</span>
+        <span data-lang="en">Decline all</span>
+        <span data-lang="ru">Отклонить все</span>
+        <span data-lang="uk">Відхилити всі</span>
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- FLOATING QUICK BAR -->
 <div class="float-bar" id="floatBar">
